@@ -1,24 +1,24 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Property from "./Property";
 import Filters from "./Filters";
-import { filters, propertiesActions } from "../store";
 import Pagination from "../components/Pagination";
-import PriceFilter from "./Filters";
-import MultiRangeSlider from "../components/MultiRangeSlider";
-import { Grid, List } from "@mantine/core";
-import TextInput from "../components/TextInput";
-import NumberInput from "../components/NumberInput";
 import Sort from "../components/Sort";
 
 let PageSize = 9;
 
-function PropertiesList() {
+function PropertiesList({ properties }: any) {
   const [isLoading, setIsLoading] = useState(true);
-  const properties = useSelector((state: any) => state.properties.properties);
   const [filteredData, setFilteredData] = useState(properties);
-  const dispatch = useDispatch();
 
+  // console.log(properties);
+  console.log(filteredData);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [properties]);
+
+  //Filters
   const priceRangeFilterHandler = ({ min, max }: any) => {
     const newData = properties.filter(
       (prop: any) =>
@@ -26,6 +26,7 @@ function PropertiesList() {
     );
     setFilteredData(newData);
   };
+
   const typeFilterHandler = (e: any) => {
     setFilteredData(
       properties.filter((prop: any) =>
@@ -33,6 +34,7 @@ function PropertiesList() {
       )
     );
   };
+
   const bedRoomsFilterHandler = (e: any) => {
     setFilteredData(
       properties.filter((prop: any) => Number(prop.beds) === +e.target.value)
@@ -61,11 +63,6 @@ function PropertiesList() {
     const lastPageIndex = firstPageIndex + PageSize;
     return filteredData.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, filteredData]);
-
-  useEffect(() => {
-    dispatch(propertiesActions.getProperties() as any);
-    setIsLoading(false);
-  }, [setIsLoading, propertiesActions.getProperties]);
 
   if (isLoading) return <p>Loading Data...</p>;
 
@@ -98,7 +95,7 @@ function PropertiesList() {
         </ul>
       )}
       {currentData?.length === 0 && (
-        <p className="text-center mt-2 mb-6">Loading properties...</p>
+        <p className="text-center mt-2 mb-6">No properties Yet...</p>
       )}
       {currentData?.error && (
         <div className="text-red-500">

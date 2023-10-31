@@ -37,6 +37,7 @@ export const propertiesReducer = slice.reducer;
 function createInitialState() {
   return {
     properties: [],
+    property: {},
     error: null,
     filteredBy: filters.ALL,
   };
@@ -63,16 +64,13 @@ function createExtraReducers() {
         state.error = null;
       },
       [fulfilled as any]: (state: any, action: any) => {
-        const properties = action.payload;
-
-        state.properties = properties;
+        state.properties = action.payload;
       },
       [rejected as any]: (state: any, action: any) => {
         state.error = action.error;
       },
     };
   }
-
   return {
     ...getProperties(),
   };
