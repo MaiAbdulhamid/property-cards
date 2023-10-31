@@ -70,7 +70,7 @@ function PropertiesList() {
   useEffect(() => {
     dispatch(propertiesActions.getProperties() as any);
     setIsLoading(false);
-  }, [setIsLoading]);
+  }, [setIsLoading, propertiesActions.getProperties]);
 
   if (isLoading) return <p>Loading Data...</p>;
 
@@ -103,13 +103,7 @@ function PropertiesList() {
         </ul>
       )}
       {currentData?.length === 0 && (
-        <p className="text-center mt-2 mb-6">No properties...</p>
-      )}
-      {isLoading && (
-        <div>
-          <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24"></svg>
-          Processing...
-        </div>
+        <p className="text-center mt-2 mb-6">Loading properties...</p>
       )}
       {currentData?.error && (
         <div className="text-red-500">
