@@ -19,16 +19,13 @@ function PropertiesList() {
   const [filteredData, setFilteredData] = useState(properties);
   const dispatch = useDispatch();
 
-  const priceRangeFilterHandler = useCallback(
-    ({ min, max }: any) => {
-      const newData = properties.filter(
-        (prop: any) =>
-          +prop.unformattedPrice <= max && +prop.unformattedPrice >= min
-      );
-      setFilteredData(newData);
-    },
-    [setFilteredData]
-  );
+  const priceRangeFilterHandler = ({ min, max }: any) => {
+    const newData = properties.filter(
+      (prop: any) =>
+        +prop.unformattedPrice <= max && +prop.unformattedPrice >= min
+    );
+    setFilteredData(newData);
+  };
   const typeFilterHandler = (e: any) => {
     setFilteredData(
       properties.filter((prop: any) =>
@@ -45,13 +42,11 @@ function PropertiesList() {
   //Sort
 
   const sortAscending = (key: string) => {
-    const prices = properties
-      .slice()
-      .sort((a: any, b: any) => a[key] - b[key]);
+    const prices = properties.slice().sort((a: any, b: any) => a[key] - b[key]);
     setFilteredData(prices);
   };
 
-  const sortDescending = (key : string) => {
+  const sortDescending = (key: string) => {
     const prices = properties
       .slice()
       .sort((a: any, b: any) => a[key] - b[key])
@@ -85,13 +80,13 @@ function PropertiesList() {
         <div className="grid xs:grid-cols-1 sm:grid-cols-3">
           <Sort
             label="Price"
-            sortAscending={() => sortAscending('unformattedPrice')}
-            sortDescending={() => sortDescending('unformattedPrice')}
+            sortAscending={() => sortAscending("unformattedPrice")}
+            sortDescending={() => sortDescending("unformattedPrice")}
           />
           <Sort
             label="Number Of bedrooms"
-            sortAscending={() => sortAscending('beds')}
-            sortDescending={() => sortDescending('beds')}
+            sortAscending={() => sortAscending("beds")}
+            sortDescending={() => sortDescending("beds")}
           />
         </div>
       </div>

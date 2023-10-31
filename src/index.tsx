@@ -1,11 +1,9 @@
-import "@mantine/core/styles.css";
 import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { MantineProvider } from "@mantine/core";
 import { BrowserRouter } from "react-router-dom";
 
 import { store } from "./store";
@@ -17,9 +15,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>      
-        <MantineProvider>
-          <App />
-        </MantineProvider>
+        <App />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
