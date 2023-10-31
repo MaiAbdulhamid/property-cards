@@ -9,7 +9,7 @@ const Filters = ({
   bedRoomsFilterHandler,
 }: any) => {
   return (
-    <div className="grid xs:grid-cols-1 lg:grid-cols-3">
+    <div className="flex flex-col">
       <TextInput label="Type" onChange={typeFilterHandler} />
       <MultiRangeSlider
         min={0}

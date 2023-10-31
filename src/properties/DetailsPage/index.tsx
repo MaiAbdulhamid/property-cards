@@ -16,9 +16,12 @@ const DetailsPage = () => {
 
   return (
     <div>
+      <img src={data.imgSrc} />
       <p>#{data.id}</p>
       <p className="text-gray-700 text-base">Address: {data.address}</p>
-
+      <p className="text-gray-700 text-base">Lat: {data.latitude}</p>
+      <p className="text-gray-700 text-base">Lang: {data.longitude}</p>
+      <p className="text-gray-700 text-base">Area: {data.area}</p>
     </div>
   )
 }

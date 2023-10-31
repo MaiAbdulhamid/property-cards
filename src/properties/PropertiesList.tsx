@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useMemo, useState } from "react";
 import Property from "./Property";
 import Filters from "./Filters";
 import Pagination from "../components/Pagination";
 import Sort from "../components/Sort";
+import "./PropertiesList.css";
 
 let PageSize = 9;
 
@@ -11,11 +11,12 @@ function PropertiesList({ properties }: any) {
   const [isLoading, setIsLoading] = useState(true);
   const [filteredData, setFilteredData] = useState(properties);
 
-  // console.log(properties);
+  console.log(`props`, properties);
   console.log(filteredData);
 
   useEffect(() => {
     setIsLoading(false);
+    setFilteredData(properties)
   }, [properties]);
 
   //Filters
@@ -30,7 +31,7 @@ function PropertiesList({ properties }: any) {
   const typeFilterHandler = (e: any) => {
     setFilteredData(
       properties.filter((prop: any) =>
-        prop.statusText.toLowerCase().includes(e.target.value.toLowerCase())
+        prop.type?.toLowerCase().includes(e.target.value.toLowerCase())
       )
     );
   };
@@ -68,13 +69,13 @@ function PropertiesList({ properties }: any) {
 
   return (
     <>
-      <div className="p-5">
+      <aside className="fixed top-0 left-0 z-40 w-64" aria-label="Sidebar">
         <Filters
           priceRangeFilterHandler={priceRangeFilterHandler}
           typeFilterHandler={typeFilterHandler}
           bedRoomsFilterHandler={bedRoomsFilterHandler}
         />
-        <div className="grid xs:grid-cols-1 sm:grid-cols-3">
+        <div className="flex flex-col">
           <Sort
             label="Price"
             sortAscending={() => sortAscending("unformattedPrice")}
@@ -86,29 +87,31 @@ function PropertiesList({ properties }: any) {
             sortDescending={() => sortDescending("beds")}
           />
         </div>
-      </div>
-      {currentData && (
-        <ul className="list-none p-0 grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {currentData.map((property: any) => (
-            <Property key={property.id} property={property} />
-          ))}
-        </ul>
-      )}
-      {currentData?.length === 0 && (
-        <p className="text-center mt-2 mb-6">No properties Yet...</p>
-      )}
-      {currentData?.error && (
-        <div className="text-red-500">
-          Error loading todo List: {currentData.error.message}
-        </div>
-      )}
-      <Pagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={filteredData.length}
-        pageSize={PageSize}
-        onPageChange={(page: any) => setCurrentPage(page)}
-      />
+      </aside>
+      <section className="page-content">
+        {currentData && (
+          <ul className="list-none p-0 grid xs:grid-cols-1 sm:grid-cols-2">
+            {currentData.map((property: any) => (
+              <Property key={property.id} property={property} />
+            ))}
+          </ul>
+        )}
+        {currentData?.length === 0 && (
+          <p className="text-center mt-2 mb-6">No properties Yet...</p>
+        )}
+        {currentData?.error && (
+          <div className="text-red-500">
+            Error loading todo List: {currentData.error.message}
+          </div>
+        )}
+        <Pagination
+          className="pagination-bar"
+          currentPage={currentPage}
+          totalCount={filteredData.length}
+          pageSize={PageSize}
+          onPageChange={(page: any) => setCurrentPage(page)}
+        />
+      </section>
     </>
   );
 }
