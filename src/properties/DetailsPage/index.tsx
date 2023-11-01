@@ -17,7 +17,7 @@ const DetailsPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="max-w-lg m-auto rounded overflow-hidden shadow-lg">
       <img
         src={data[0]?.imgSrc}
         style={{
@@ -25,17 +25,19 @@ const DetailsPage = () => {
           margin: "1rem 0"
         }}
       />
-      <p>#{data[0]?.id}</p>
-      {data[0]?.name && (
-        <p className="text-gray-700 text-base">Name: {data[0]?.name}</p>
-      )}
-      {data[0]?.type && (
-        <p className="text-gray-700 text-base">Type: {data[0]?.type}</p>
-      )}
-      <p className="text-gray-700 text-base">Address: {data[0]?.address}</p>
-      <p className="text-gray-700 text-base">Lat: {data[0]?.latitude}</p>
-      <p className="text-gray-700 text-base">Lang: {data[0]?.longitude}</p>
-      <p className="text-gray-700 text-base">Area: {data[0]?.area}</p>
+      <div className="p-4">
+        <p>#{data[0]?.id}</p>
+        {data[0]?.name && (
+          <p className="text-gray-700 text-base">Name: {data[0]?.name}</p>
+        )}
+        {data[0]?.type && (
+          <p className="text-gray-700 text-base">Type: {data[0]?.type}</p>
+        )}
+        <p className="text-gray-700 text-base">Address: {data[0]?.address}</p>
+        <p className="text-gray-700 text-base">Lat: {data[0]?.latitude}</p>
+        <p className="text-gray-700 text-base">Lang: {data[0]?.longitude}</p>
+        <p className="text-gray-700 text-base">Area: {data[0]?.area}</p>
+      </div>
     </div>
   );
 };
